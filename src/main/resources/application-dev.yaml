@@ -1,0 +1,29 @@
+#数据库配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://118.31.64.83:3306/secret_chat?serverTimezone=GMT%2B8&Unicode=true&characterEncoding=utf-8&useSSL=false
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+
+#Pagehelper配置
+pagehelper:
+  reasonable: false
+  support-methods-arguments: true
+  params: count=countSql
+  page-size-zero: true
+  helper-dialect: mysql
+
+server:
+  port: 8080
+
+mybatis:
+  type-aliases-package: com.hwy.secretchat.pojo
+  #Mybatis驼峰转换与控制台打印sql
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
