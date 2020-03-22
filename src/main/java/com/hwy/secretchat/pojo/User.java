@@ -18,7 +18,7 @@ public class User {
 
     private Integer gender;
 
-    private String personality;
+    private String description;
 
     private String faceImage;
 

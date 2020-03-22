@@ -16,7 +16,7 @@ public interface UserMapper {
      * @return 用户列表，未分页
      */
     @Select("select * from user")
-    List<User> findAllUser();
+    List<User> findAllUsers();
 
     /**
      * 通过Id查询用户信息
@@ -31,8 +31,8 @@ public interface UserMapper {
      * @param user
      * @return
      */
-    @Insert("insert into user(id, username, password, gender, personality, face_image, face_image_big) values(#{id}, " +
-            "#{username}, #{password}, #{gender}, #{personality}, #{faceImage}, #{faceImageBig})")
+    @Insert("insert into user(id, username, password, gender, description, face_image, face_image_big) values(#{id}, " +
+            "#{username}, #{password}, #{gender}, #{description}, #{faceImage}, #{faceImageBig})")
     boolean insertOneUser(User user);
 
     @Select("select * from user where username = #{username}")
