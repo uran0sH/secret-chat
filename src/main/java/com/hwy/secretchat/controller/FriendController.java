@@ -1,0 +1,100 @@
+package com.hwy.secretchat.controller;
+
+import com.hwy.secretchat.enums.ResultEnum;
+import com.hwy.secretchat.enums.SearchFriendStatusEnum;
+import com.hwy.secretchat.exception.ReturnException;
+import com.hwy.secretchat.pojo.Friend;
+import com.hwy.secretchat.pojo.User;
+import com.hwy.secretchat.pojo.vo.FriendVO;
+import com.hwy.secretchat.pojo.vo.ResultVO;
+import com.hwy.secretchat.pojo.vo.UserVO;
+import com.hwy.secretchat.service.FriendService;
+import com.hwy.secretchat.service.UserService;
+import com.hwy.secretchat.utils.ResultVOUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * @program: secret-chat
+ * @author: huangwenyu
+ * @create: 2020-03-16
+ */
+@RestController
+@RequestMapping("contact")
+public class FriendController {
+
+    @Autowired
+    private FriendService friendService;
+
+    @Autowired
+    private UserService userService;
+
+    /**
+     * 查询好友列表REST接口
+     * @param myId
+     * @return
+     * TODO 用WebSocket完成这个功能，实现好友列表自动刷新
+     */
+    @PostMapping("/getContact")
+    public ResultVO<List<FriendVO>> findAllFriends(@RequestParam("id") String myId) {
+
+        if (StringUtils.isBlank(myId)) {
+            throw new ReturnException(ResultEnum.PARAM_ERROR);
+        }
+
+        List<Friend> friendList = friendService.findAllFriends(myId);
+
+        List<FriendVO> friendVOList = null;
+        if (friendList != null && friendList.size() > 0) {
+            friendVOList = friendList.stream().map(e -> {
+                String friendId = e.getFriendId();
+                User user = userService.findOneUserById(friendId);
+                FriendVO friendVO = new FriendVO();
+                if (user != null) {
+                    BeanUtils.copyProperties(user, friendVO);
+                } else {
+                    throw new ReturnException(ResultEnum.PARAM_ERROR);
+                }
+                return friendVO;
+            }).collect(Collectors.toList());
+        }
+
+        return ResultVOUtil.success(friendVOList);
+
+    }
+
+    /**
+     * 查询好友
+     * @param myId 本人用户id
+     * @param friendUsername 好友用户名
+     * @return
+     */
+    @PostMapping("/search")
+    public ResultVO<UserVO> searchFriend(String myId, String friendUsername) {
+
+        if (StringUtils.isBlank(friendUsername) || StringUtils.isBlank(myId)) {
+            throw new ReturnException(ResultEnum.PARAM_ERROR);
+        }
+
+        // 前置条件 - 1. 搜索的用户如果不存在，返回[无此用户]
+        // 前置条件 - 2. 搜索账号是你自己，返回[不能添加自己]
+        // 前置条件 - 3. 搜索的朋友已经是你的好友，返回[该用户已经是你的好友]
+        SearchFriendStatusEnum searchFriendStatusEnum = friendService.preconditionSearchFriend(myId, friendUsername);
+        if (searchFriendStatusEnum != SearchFriendStatusEnum.SUCCESS) {
+            throw new ReturnException(searchFriendStatusEnum);
+        }
+        User user = userService.findOneUserByUsername(friendUsername);
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(user, userVO);
+        return ResultVOUtil.success(userVO);
+    }
+
+
+
+
+}

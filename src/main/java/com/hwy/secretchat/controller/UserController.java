@@ -1,7 +1,7 @@
 package com.hwy.secretchat.controller;
 
 import com.hwy.secretchat.enums.ResultEnum;
-import com.hwy.secretchat.exception.UserException;
+import com.hwy.secretchat.exception.ReturnException;
 import com.hwy.secretchat.pojo.bo.UserBO;
 import com.hwy.secretchat.pojo.vo.ResultVO;
 import com.hwy.secretchat.service.UserService;
@@ -25,31 +25,41 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 用户登录
+     * @param userBO
+     * @return
+     */
     @PostMapping("/login")
     public ResultVO<String> login(@RequestBody UserBO userBO) {
 
         if (StringUtils.isBlank(userBO.getUsername()) || StringUtils.isBlank(userBO.getPassword())) {
-            throw new UserException(ResultEnum.PARAM_ERROR);
+            throw new ReturnException(ResultEnum.PARAM_ERROR);
         }
 
         String userId = userService.isLoginSuccessful(userBO.getUsername(), userBO.getPassword());
         if (userId != null) {
             return ResultVOUtil.success(userId);
         } else {
-            throw new UserException(ResultEnum.LOGIN_FAILED);
+            throw new ReturnException(ResultEnum.LOGIN_FAILED);
         }
 
     }
 
+    /**
+     * 用户注册
+     * @param userBO
+     * @return
+     */
     @PostMapping("/register")
     public ResultVO<String> register(@RequestBody UserBO userBO) {
 
         if (StringUtils.isBlank(userBO.getUsername()) || StringUtils.isBlank(userBO.getPassword())) {
-            throw new UserException(ResultEnum.PARAM_ERROR);
+            throw new ReturnException(ResultEnum.PARAM_ERROR);
         }
 
         if (userService.findOneUserByUsername(userBO.getUsername()) != null) {
-            throw new UserException(ResultEnum.USERNAME_DUPLICATE);
+            throw new ReturnException(ResultEnum.USERNAME_DUPLICATE);
         }
 
         String resultId = userService.registerUser(userBO.getUsername(), userBO.getPassword());
@@ -57,7 +67,7 @@ public class UserController {
         if (resultId != null) {
             return ResultVOUtil.success(resultId);
         } else {
-            throw new UserException(ResultEnum.REGISTER_FAILED);
+            throw new ReturnException(ResultEnum.REGISTER_FAILED);
         }
     }
 }

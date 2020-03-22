@@ -1,12 +1,15 @@
 package com.hwy.secretchat.pojo.mapper;
 
 import com.hwy.secretchat.pojo.User;
+import com.hwy.secretchat.utils.UserIdUtil;
+import com.hwy.secretchat.utils.encryption.SHA1EncryptUtil;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -22,18 +25,17 @@ class UserMapperTest {
 
     @Test
     void findOneUserById() {
-        User resultUser = userMapper.findOneUserById("11111111");
-        Assert.assertNotNull(resultUser);
+
     }
 
     @Test
+    @Transactional
     void insertOneUser() {
         User user = new User();
-        user.setId("11111111");
-        user.setUsername("brsmsg");
-        user.setPassword("brsmsg");
-        user.setGender(1);
+        user.setId(UserIdUtil.generateUserId());
+        user.setUsername("18571549927");
+        user.setPassword(SHA1EncryptUtil.encryptStr("123456"));
         boolean result = userMapper.insertOneUser(user);
-        System.out.println(result);
+        Assert.assertEquals(true, result);
     }
 }
