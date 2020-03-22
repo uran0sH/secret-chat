@@ -40,7 +40,7 @@ public class FriendServiceImpl implements FriendService {
         User user = userService.findOneUserByUsername(friendUsername);
 
         //用户不存在
-        if (user != null) {
+        if (user == null) {
             return SearchFriendStatusEnum.USER_NOT_EXIST;
         }
 
