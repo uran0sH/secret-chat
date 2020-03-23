@@ -4,9 +4,9 @@ import com.hwy.secretchat.enums.ResultEnum;
 import com.hwy.secretchat.enums.SearchFriendStatusEnum;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-15
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-15
  */
 public class ReturnException extends RuntimeException{
 

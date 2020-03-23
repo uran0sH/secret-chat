@@ -6,9 +6,9 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-15
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-15
  */
 public class SHA1EncryptUtil {
 

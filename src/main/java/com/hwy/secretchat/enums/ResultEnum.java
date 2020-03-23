@@ -3,9 +3,9 @@ package com.hwy.secretchat.enums;
 import lombok.Getter;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-15
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-15
  * 返回结果状态码和状态信息的枚举类
  */
 @Getter

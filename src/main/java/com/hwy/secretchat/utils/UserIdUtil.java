@@ -3,9 +3,9 @@ package com.hwy.secretchat.utils;
 import java.util.UUID;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-15
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-15
  */
 public class UserIdUtil {
 

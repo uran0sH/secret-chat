@@ -3,9 +3,9 @@ package com.hwy.secretchat.utils;
 import com.hwy.secretchat.pojo.vo.ResultVO;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-15
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-15
  * ResultVO工具类
  */
 public class ResultVOUtil {

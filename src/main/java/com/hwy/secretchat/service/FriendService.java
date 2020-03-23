@@ -7,9 +7,9 @@ import com.hwy.secretchat.pojo.FriendRequest;
 import java.util.List;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-16
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-16
  */
 public interface FriendService {
 

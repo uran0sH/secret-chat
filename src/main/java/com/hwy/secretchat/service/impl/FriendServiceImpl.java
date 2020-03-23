@@ -17,9 +17,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-17
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-17
  */
 @Service
 public class FriendServiceImpl implements FriendService {

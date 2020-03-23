@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-16
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-16
  */
 @RestController
 @RequestMapping("friend")
@@ -134,5 +134,7 @@ public class FriendController {
         return ResultVOUtil.success(friendService.findAllFriendRequests(myId));
 
     }
+
+
 
 }
