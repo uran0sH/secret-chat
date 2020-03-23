@@ -4,6 +4,11 @@ import com.hwy.secretchat.pojo.User;
 
 import java.util.List;
 
+/**
+ * @program: secret-chat
+ * @author: huangwenyu
+ * @create: 2020-03-23
+ */
 public interface UserService {
 
     List<User> findAllUsers();

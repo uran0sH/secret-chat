@@ -3,7 +3,9 @@ package com.hwy.secretchat.enums;
 import lombok.Getter;
 
 /**
- * 查询好友结果
+ * @program: secret-chat
+ * @author: huangwenyu
+ * @create: 2020-03-23
  */
 @Getter
 public enum SearchFriendStatusEnum {
