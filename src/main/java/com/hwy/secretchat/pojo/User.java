@@ -3,9 +3,9 @@ package com.hwy.secretchat.pojo;
 import lombok.Data;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-13
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-13
  */
 @Data
 public class User {

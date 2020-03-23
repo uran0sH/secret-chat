@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-13
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-13
  */
 @Service
 public class UserServiceImpl implements UserService {

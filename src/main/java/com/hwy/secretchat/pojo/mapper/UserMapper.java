@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-23
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-23
  */
 @Repository
 public interface UserMapper {

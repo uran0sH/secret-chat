@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-13
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-13
  */
 @RestController
 @RequestMapping("account")

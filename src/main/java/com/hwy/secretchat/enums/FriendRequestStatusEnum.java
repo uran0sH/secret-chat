@@ -3,9 +3,9 @@ package com.hwy.secretchat.enums;
 import lombok.Getter;
 
 /**
- * @program: secret-chat
- * @author: huangwenyu
- * @create: 2020-03-23
+ * @program secret-chat
+ * @author huangwenyu
+ * @create 2020-03-23
  */
 @Getter
 public enum FriendRequestStatusEnum {
