@@ -1,6 +1,6 @@
 package com.hwy.secretchat.utils;
 
-import com.hwy.secretchat.pojo.vo.ResultVO;
+import com.hwy.secretchat.model.vo.ResultVO;
 
 /**
  * @program secret-chat

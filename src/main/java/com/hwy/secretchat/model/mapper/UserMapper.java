@@ -1,6 +1,6 @@
-package com.hwy.secretchat.pojo.mapper;
+package com.hwy.secretchat.model.mapper;
 
-import com.hwy.secretchat.pojo.User;
+import com.hwy.secretchat.model.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;

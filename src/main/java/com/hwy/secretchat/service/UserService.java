@@ -1,6 +1,6 @@
 package com.hwy.secretchat.service;
 
-import com.hwy.secretchat.pojo.User;
+import com.hwy.secretchat.model.entity.User;
 
 import java.util.List;
 

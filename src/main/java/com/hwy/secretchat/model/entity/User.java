@@ -1,4 +1,4 @@
-package com.hwy.secretchat.pojo;
+package com.hwy.secretchat.model.entity;
 
 import lombok.Data;
 

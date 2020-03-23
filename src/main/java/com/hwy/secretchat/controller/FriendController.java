@@ -3,11 +3,12 @@ package com.hwy.secretchat.controller;
 import com.hwy.secretchat.enums.ResultEnum;
 import com.hwy.secretchat.enums.SearchFriendStatusEnum;
 import com.hwy.secretchat.exception.ReturnException;
-import com.hwy.secretchat.pojo.Friend;
-import com.hwy.secretchat.pojo.User;
-import com.hwy.secretchat.pojo.vo.FriendVO;
-import com.hwy.secretchat.pojo.vo.ResultVO;
-import com.hwy.secretchat.pojo.vo.UserVO;
+import com.hwy.secretchat.model.entity.Friend;
+import com.hwy.secretchat.model.entity.User;
+import com.hwy.secretchat.model.bo.FriendRequestBO;
+import com.hwy.secretchat.model.vo.FriendVO;
+import com.hwy.secretchat.model.vo.ResultVO;
+import com.hwy.secretchat.model.vo.UserVO;
 import com.hwy.secretchat.service.FriendService;
 import com.hwy.secretchat.service.UserService;
 import com.hwy.secretchat.utils.ResultVOUtil;
@@ -135,6 +136,18 @@ public class FriendController {
 
     }
 
-
-
+    /**
+     * 处理好友请求
+     * @param friendRequestBO
+     * @return
+     */
+    @PostMapping("/operateFriendRequest")
+    public ResultVO operateFriendRequest(@RequestBody FriendRequestBO friendRequestBO) {
+        boolean result = friendService.operateFriendRequest(friendRequestBO.getSendUserId(), friendRequestBO.getReceiveUserId()
+                , friendRequestBO.getOperateType());
+        if (result) {
+            return ResultVOUtil.success();
+        }
+        return ResultVOUtil.error();
+    }
 }

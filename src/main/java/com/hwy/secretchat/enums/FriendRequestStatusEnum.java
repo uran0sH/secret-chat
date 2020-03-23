@@ -24,4 +24,5 @@ public enum FriendRequestStatusEnum {
         this.code = code;
         this.msg = msg;
     }
+
 }

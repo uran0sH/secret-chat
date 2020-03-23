@@ -1,6 +1,6 @@
-package com.hwy.secretchat.pojo.mapper;
+package com.hwy.secretchat.model.mapper;
 
-import com.hwy.secretchat.pojo.Friend;
+import com.hwy.secretchat.model.entity.Friend;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;

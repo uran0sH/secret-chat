@@ -2,11 +2,11 @@ package com.hwy.secretchat.service.impl;
 
 import com.hwy.secretchat.enums.FriendRequestStatusEnum;
 import com.hwy.secretchat.enums.SearchFriendStatusEnum;
-import com.hwy.secretchat.pojo.Friend;
-import com.hwy.secretchat.pojo.FriendRequest;
-import com.hwy.secretchat.pojo.User;
-import com.hwy.secretchat.pojo.mapper.FriendMapper;
-import com.hwy.secretchat.pojo.mapper.FriendRequestMapper;
+import com.hwy.secretchat.model.entity.Friend;
+import com.hwy.secretchat.model.entity.FriendRequest;
+import com.hwy.secretchat.model.entity.User;
+import com.hwy.secretchat.model.mapper.FriendMapper;
+import com.hwy.secretchat.model.mapper.FriendRequestMapper;
 import com.hwy.secretchat.service.FriendService;
 import com.hwy.secretchat.service.UserService;
 import com.hwy.secretchat.utils.KeyUtil;
@@ -39,8 +39,12 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
-    public boolean insertOneFriend(String friendId) {
-        return false;
+    public boolean insertOneFriend(String myId, String friendId) {
+        Friend friend = new Friend();
+        friend.setId(KeyUtil.genUniqueKey());
+        friend.setMyId(myId);
+        friend.setFriendId(friendId);
+        return friendMapper.insertOneFriend(friend);
     }
 
     @Override
@@ -91,5 +95,13 @@ public class FriendServiceImpl implements FriendService {
         return friendRequestMapper.findReceiveFriendRequest(myId);
     }
 
+    @Override
+    public boolean operateFriendRequest(String sendUserId, String receiveUserId, Integer operateType) {
+        boolean result = friendRequestMapper.updateFriendRequestStatus(sendUserId, receiveUserId, operateType);
+        if (operateType.equals(FriendRequestStatusEnum.ACCEPTED.getCode()) && result) {
+                return insertOneFriend(sendUserId, receiveUserId) & insertOneFriend(receiveUserId, sendUserId);
+        }
+        return false;
+    }
 
 }
