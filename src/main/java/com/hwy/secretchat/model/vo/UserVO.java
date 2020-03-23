@@ -14,6 +14,8 @@ public class UserVO {
 
     String username;
 
+    String faceImage;
+
     String description;
 
 }
