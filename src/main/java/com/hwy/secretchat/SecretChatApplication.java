@@ -8,7 +8,7 @@ package com.hwy.secretchat;
  * SecretChatApplication
  * @author huangwenyu
  */
-@MapperScan(basePackages = "com.hwy.secretchat.pojo.mapper")
+@MapperScan(basePackages = "com.hwy.secretchat.model.mapper")
 @SpringBootApplication
 public class SecretChatApplication {
 

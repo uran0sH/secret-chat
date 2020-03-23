@@ -2,8 +2,8 @@ package com.hwy.secretchat.controller;
 
 import com.hwy.secretchat.enums.ResultEnum;
 import com.hwy.secretchat.exception.ReturnException;
-import com.hwy.secretchat.pojo.bo.UserBO;
-import com.hwy.secretchat.pojo.vo.ResultVO;
+import com.hwy.secretchat.model.bo.UserBO;
+import com.hwy.secretchat.model.vo.ResultVO;
 import com.hwy.secretchat.service.UserService;
 import com.hwy.secretchat.utils.ResultVOUtil;
 import org.apache.commons.lang3.StringUtils;

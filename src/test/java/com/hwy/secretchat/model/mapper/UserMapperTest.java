@@ -1,6 +1,6 @@
-package com.hwy.secretchat.pojo.mapper;
+package com.hwy.secretchat.model.mapper;
 
-import com.hwy.secretchat.pojo.User;
+import com.hwy.secretchat.model.entity.User;
 import com.hwy.secretchat.utils.UserIdUtil;
 import com.hwy.secretchat.utils.encryption.SHA1EncryptUtil;
 import org.junit.Assert;

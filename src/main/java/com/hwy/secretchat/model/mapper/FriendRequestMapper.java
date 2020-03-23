@@ -1,8 +1,9 @@
-package com.hwy.secretchat.pojo.mapper;
+package com.hwy.secretchat.model.mapper;
 
-import com.hwy.secretchat.pojo.FriendRequest;
+import com.hwy.secretchat.model.entity.FriendRequest;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -48,4 +49,15 @@ public interface FriendRequestMapper {
     @Insert("insert into friend_request(id, send_user_id, receive_user_id, is_accept, request_date_time) values(#{id}, " +
             "#{sendUserId}, #{receiveUserId}, #{isAccept}, #{requestDateTime})")
     boolean insertFriendRequest(FriendRequest friendRequest);
+
+    /**
+     * 更新请求状态
+     * @param sendUserId
+     * @param receiveUserId
+     * @param operateType
+     * @return
+     */
+    @Update("update friend_request set is_accept = #{operateType} where send_user_id = #{sendUserId} " +
+            "and receive_user_id = #{receiveUserId}")
+    boolean updateFriendRequestStatus(String sendUserId, String receiveUserId, Integer operateType);
 }

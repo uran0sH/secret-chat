@@ -1,8 +1,8 @@
 package com.hwy.secretchat.service;
 
 import com.hwy.secretchat.enums.SearchFriendStatusEnum;
-import com.hwy.secretchat.pojo.Friend;
-import com.hwy.secretchat.pojo.FriendRequest;
+import com.hwy.secretchat.model.entity.Friend;
+import com.hwy.secretchat.model.entity.FriendRequest;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public interface FriendService {
     List<Friend> findAllFriends(String myId);
 
 
-    boolean insertOneFriend(String friendId);
+    boolean insertOneFriend(String myId, String friendId);
 
     /**
      * 查询好友之前的预查询
@@ -45,4 +45,13 @@ public interface FriendService {
      * @return
      */
     List<FriendRequest> findAllFriendRequests(String myId);
+
+    /**
+     * 处理好友请求
+     * @param sendUserId
+     * @param receiveUserId
+     * @param operateType
+     * @return
+     */
+    boolean operateFriendRequest(String sendUserId, String receiveUserId, Integer operateType);
 }

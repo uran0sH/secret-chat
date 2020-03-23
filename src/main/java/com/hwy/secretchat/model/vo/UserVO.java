@@ -1,4 +1,4 @@
-package com.hwy.secretchat.pojo.vo;
+package com.hwy.secretchat.model.vo;
 
 import lombok.Data;
 
