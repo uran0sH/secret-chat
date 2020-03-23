@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * @create: 2020-03-16
  */
 @RestController
-@RequestMapping("contact")
+@RequestMapping("friend")
 public class FriendController {
 
     @Autowired
@@ -40,7 +40,7 @@ public class FriendController {
      * @return
      * TODO 用WebSocket完成这个功能，实现好友列表自动刷新
      */
-    @PostMapping("/getContact")
+    @PostMapping("/getFriend")
     public ResultVO<List<FriendVO>> findAllFriends(@RequestParam("id") String myId) {
 
         if (StringUtils.isBlank(myId)) {
@@ -94,7 +94,29 @@ public class FriendController {
         return ResultVOUtil.success(userVO);
     }
 
+    /**
+     * 发出好友请求
+     * @param myId
+     * @param friendUsername
+     * @return
+     */
+    @PostMapping("/sendFriendRequest")
+    public ResultVO<String> sendFriendRequest(String myId, String friendUsername) {
 
+        if (StringUtils.isBlank(friendUsername) || StringUtils.isBlank(myId)) {
+            throw new ReturnException(ResultEnum.PARAM_ERROR);
+        }
 
+        // 前置条件 - 1. 搜索的用户如果不存在，返回[无此用户]
+        // 前置条件 - 2. 搜索账号是你自己，返回[不能添加自己]
+        // 前置条件 - 3. 搜索的朋友已经是你的好友，返回[该用户已经是你的好友]
+        SearchFriendStatusEnum searchFriendStatusEnum = friendService.preconditionSearchFriend(myId, friendUsername);
+        if (searchFriendStatusEnum != SearchFriendStatusEnum.SUCCESS) {
+            throw new ReturnException(searchFriendStatusEnum);
+        }
+
+        String result = friendService.sendFriendRequest(myId, friendUsername);
+        return ResultVOUtil.success(result);
+    }
 
 }

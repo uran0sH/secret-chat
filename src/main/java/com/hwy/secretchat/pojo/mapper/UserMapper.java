@@ -3,12 +3,16 @@ package com.hwy.secretchat.pojo.mapper;
 import com.hwy.secretchat.pojo.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * 用户信息Mybatis接口
+ * @program: secret-chat
+ * @author: huangwenyu
+ * @create: 2020-03-23
  */
+@Repository
 public interface UserMapper {
 
     /**
@@ -35,6 +39,11 @@ public interface UserMapper {
             "#{username}, #{password}, #{gender}, #{description}, #{faceImage}, #{faceImageBig})")
     boolean insertOneUser(User user);
 
+    /**
+     * 通过用户名查找一个用户
+     * @param username
+     * @return
+     */
     @Select("select * from user where username = #{username}")
     User findOneUserByUsername(String username);
 }

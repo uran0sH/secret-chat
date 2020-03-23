@@ -19,6 +19,7 @@ public interface FriendService {
      */
     List<Friend> findAllFriends(String myId);
 
+
     boolean insertOneFriend(String friendId);
 
     /**
@@ -28,4 +29,12 @@ public interface FriendService {
      * @return
      */
     SearchFriendStatusEnum preconditionSearchFriend(String myId, String friendUsername);
+
+    /**
+     * 发出好友请求
+     * @param myId
+     * @param friendUsername
+     * @return
+     */
+    String sendFriendRequest(String myId, String friendUsername);
 }

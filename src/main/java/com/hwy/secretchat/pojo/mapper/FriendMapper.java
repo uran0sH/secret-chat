@@ -4,12 +4,16 @@ import com.hwy.secretchat.pojo.Friend;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * 好友Mapper接口
+ * @program: secret-chat
+ * @author: huangwenyu
+ * @create: 2020-03-23
  */
+@Repository
 public interface FriendMapper {
 
     /**
