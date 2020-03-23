@@ -9,6 +9,9 @@ import lombok.Getter;
  */
 @Getter
 public enum FriendRequestStatusEnum {
+    /**
+     * 消息处理状态
+     */
     UNPROCESSED(0, "This request hasn't been processed"),
     ACCEPTED(1, "This request has been accepted"),
     REFUSED(2, "This request has been refused");

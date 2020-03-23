@@ -33,6 +33,12 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.1.1</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis-typehandlers-jsr310 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-typehandlers-jsr310</artifactId>
+            <version>1.0.2</version>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -43,11 +49,11 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.10</version>
         </dependency>
-        <!-- Druid连接池 -->
+        <!-- Druid连接池 版本1.1.20以上，否则不能使用LocalDateTime-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.10</version>
+            <version>1.1.21</version>
         </dependency>
 
         <dependency>

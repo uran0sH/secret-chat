@@ -119,4 +119,20 @@ public class FriendController {
         return ResultVOUtil.success(result);
     }
 
+    /**
+     * 查询接收到的好友请求
+     * @param myId
+     * @return
+     */
+    @PostMapping("/searchFriendRequest")
+    public ResultVO searchFriendRequest(String myId) {
+
+        if (StringUtils.isBlank(myId)) {
+            throw new ReturnException(ResultEnum.PARAM_ERROR);
+        }
+
+        return ResultVOUtil.success(friendService.findAllFriendRequests(myId));
+
+    }
+
 }
