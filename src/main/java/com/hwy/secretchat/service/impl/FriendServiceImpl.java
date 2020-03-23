@@ -10,13 +10,10 @@ import com.hwy.secretchat.pojo.mapper.FriendRequestMapper;
 import com.hwy.secretchat.service.FriendService;
 import com.hwy.secretchat.service.UserService;
 import com.hwy.secretchat.utils.KeyUtil;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.Key;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -87,6 +84,11 @@ public class FriendServiceImpl implements FriendService {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<FriendRequest> findAllFriendRequests(String myId) {
+        return friendRequestMapper.findReceiveFriendRequest(myId);
     }
 
 

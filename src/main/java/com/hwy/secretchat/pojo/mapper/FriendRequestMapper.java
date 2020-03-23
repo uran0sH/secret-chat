@@ -29,7 +29,7 @@ public interface FriendRequestMapper {
      * @return
      */
     @Select("select * from friend_request where receive_user_id = #{receiveUserId}")
-    List<FriendRequest> findAcceptFriendRequest(String receiveUserId);
+    List<FriendRequest> findReceiveFriendRequest(String receiveUserId);
 
     /**
      * 查询一条好友请求

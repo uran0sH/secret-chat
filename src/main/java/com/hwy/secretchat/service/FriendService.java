@@ -2,6 +2,7 @@ package com.hwy.secretchat.service;
 
 import com.hwy.secretchat.enums.SearchFriendStatusEnum;
 import com.hwy.secretchat.pojo.Friend;
+import com.hwy.secretchat.pojo.FriendRequest;
 
 import java.util.List;
 
@@ -37,4 +38,11 @@ public interface FriendService {
      * @return
      */
     String sendFriendRequest(String myId, String friendUsername);
+
+    /**
+     * 查询所有接收到的好友请求
+     * @param myId
+     * @return
+     */
+    List<FriendRequest> findAllFriendRequests(String myId);
 }

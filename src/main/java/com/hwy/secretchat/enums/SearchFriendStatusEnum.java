@@ -10,6 +10,9 @@ import lombok.Getter;
 @Getter
 public enum SearchFriendStatusEnum {
 
+    /**
+     * 好友查询结果状态
+     */
     SUCCESS(0, "success"),
     USER_NOT_EXIST(1, "User doesn't exist."),
     NOT_YOURSELF(2, "You can't add yourself as a friend."),
