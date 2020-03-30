@@ -50,7 +50,8 @@ public class FriendController {
 
         List<Friend> friendList = friendService.findAllFriends(myId);
 
-        List<FriendVO> friendVOList = null;
+        List<FriendVO> friendVOList;
+        friendVOList = null;
         if (friendList != null && friendList.size() > 0) {
             friendVOList = friendList.stream().map(e -> {
                 String friendId = e.getFriendId();
