@@ -207,3 +207,23 @@ friendUsername = 18571549925
     "data": null
 }
 ```
+## 聊天
+* WebSocket路由 ws://localhost:8081/ws
+* 请求JSON
+```json
+{
+  "action": 1,
+  "message": {
+    "sendUserId": "",
+    "receiveUserId": "",
+    "msg": "",
+    "msgId": ""
+  },
+  "extend": "用于存放签收的Id"
+}
+```
+动作类型  
+connect: 1
+chat: 2
+sign: 3
+keep_alive: 4
