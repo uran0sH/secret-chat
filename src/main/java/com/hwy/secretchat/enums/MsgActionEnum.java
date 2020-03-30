@@ -14,7 +14,7 @@ public enum MsgActionEnum {
      */
     CONNECT(1, "First connection"),
     CHAT(2, "chat message"),
-    SIGNED(3, "message SIGNED"),
+    SIGN(3, "message sign"),
     KEEP_ALIVE(4, "keep alive");
 
     private Integer type;

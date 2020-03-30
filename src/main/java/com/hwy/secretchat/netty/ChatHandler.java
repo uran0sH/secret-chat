@@ -73,7 +73,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
                     channel.writeAndFlush(new TextWebSocketFrame(gson.toJson(dataContentMsg)));
                 }
             }
-        } else if (action.equals(MsgActionEnum.SIGNED.getType())) {
+        } else if (action.equals(MsgActionEnum.SIGN.getType())) {
             ChatMsgService chatMsgService = (ChatMsgService)SpringUtil.getBean("chatMsgServiceImpl");
             //签收的消息Id存放在扩展字段，用,分割
             String msgId = dataContent.getExtend();
