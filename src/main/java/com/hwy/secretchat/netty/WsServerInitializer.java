@@ -29,7 +29,7 @@ public class WsServerInitializer extends ChannelInitializer<SocketChannel> {
 
         // 增加心跳机制
         // 如果是读空闲或者写空闲，不处理
-        channelPipeline.addLast(new IdleStateHandler(8, 10, 12));
+        channelPipeline.addLast(new IdleStateHandler(8000, 10000, 120000));
         channelPipeline.addLast(new HeartBeatHandler());
 
         channelPipeline.addLast(new WebSocketServerProtocolHandler("/ws"));

@@ -3,6 +3,7 @@ package com.hwy.secretchat.model.mapper;
 import com.hwy.secretchat.model.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -46,4 +47,13 @@ public interface UserMapper {
      */
     @Select("select * from user where username = #{username}")
     User findOneUserByUsername(String username);
+
+    /**
+     * 更新公钥
+     * @param username
+     * @param publicKey
+     * @return
+     */
+    @Update("update user set public_key = #{publicKey} where username = #{username}")
+    boolean updatePublicKey(String username, String publicKey);
 }

@@ -39,4 +39,12 @@ public interface UserService {
      * @return 注册成功返回true，失败返回false
      */
     String registerUser(String username, String password);
+
+    /**
+     * 更新公钥
+     * @param username
+     * @param publicKey
+     * @return
+     */
+    boolean updatePublicKey(String username, String publicKey);
 }

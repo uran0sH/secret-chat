@@ -43,7 +43,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
             //第一次连接将用户id和channel关联
             String senderId = dataContent.getMessage().getSendUserId();
             UserChannelRel.put(senderId, currentChannel);
-
+            System.out.println(senderId);
             // 测试
             for (Channel c : users) {
                 System.out.println(c.id().asLongText());

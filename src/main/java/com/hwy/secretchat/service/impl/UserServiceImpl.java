@@ -56,7 +56,6 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
-    //TODO 行为分析还没添加
     @Override
     public String registerUser(String username, String password) {
         String id = UserIdUtil.generateUserId();
@@ -70,5 +69,10 @@ public class UserServiceImpl implements UserService {
             return id;
         }
         return null;
+    }
+
+    @Override
+    public boolean updatePublicKey(String username, String publicKey) {
+        return userMapper.updatePublicKey(username, publicKey);
     }
 }

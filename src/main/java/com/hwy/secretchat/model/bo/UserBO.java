@@ -2,6 +2,8 @@ package com.hwy.secretchat.model.bo;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * @program secret-chat
  * @author huangwenyu
@@ -10,7 +12,12 @@ import lombok.Data;
 @Data
 public class UserBO {
 
+    @NotEmpty(message = "username cannot be empty")
     private String username;
 
+    @NotEmpty(message = "password cannot be empty")
     private String password;
+
+    @NotEmpty(message = "publicKey cannot be empty")
+    private String publicKey;
 }

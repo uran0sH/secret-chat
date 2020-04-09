@@ -15,4 +15,6 @@ public class FriendVO {
     private String faceImage;
 
     private String description;
+
+    private String publicKey;
 }

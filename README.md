@@ -8,7 +8,8 @@
 ```
 {
     "username": "123232",
-    "password": "132213"
+    "password": "132213",
+    "publicKey": ""
 }
 ```
 * 返回json:   
@@ -77,9 +78,10 @@ id = 登录用户的id
     "msg": "success",
     "data": [
         {
-            “username” //联系人用户名 ,
-            “faceImage” //头像url,			
-            “description” //个性签名
+            “username”: //联系人用户名 ,
+            “faceImage”: //头像url,			
+            “description”: //个性签名,
+            "publicKey":
         }
     ]
 }

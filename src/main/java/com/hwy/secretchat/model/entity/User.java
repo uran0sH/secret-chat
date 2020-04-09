@@ -23,4 +23,6 @@ public class User {
     private String faceImage;
 
     private String faceImageBig;
+
+    private String publicKey;
 }

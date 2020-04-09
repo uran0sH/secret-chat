@@ -43,6 +43,7 @@ public class UserController {
         String userId = userService.isLoginSuccessful(userBO.getUsername(), userBO.getPassword());
         if (userId != null) {
             User user = userService.findOneUserById(userId);
+            userService.updatePublicKey(userBO.getUsername(), userBO.getPublicKey());
             UserVO userVO = new UserVO();
             BeanUtils.copyProperties(user, userVO);
             return ResultVOUtil.success(userVO);

@@ -21,8 +21,8 @@ public interface ChatMsgMapper {
      * @param chatMsg
      * @return
      */
-    @Insert("insert into chat_msg(id, send_user_id, receive_user_id, msg, sign_flag, create_time) values(#{chatMsg.id}, " +
-            "#{chatMsg.sendUserId}, #{chatMsg.receiveUserId}, #{chatMsg.msg}, #{chatMsg.signFlag}, #{chatMsg.createTime})")
+    @Insert("insert into chat_msg(id, send_user_id, receive_user_id, msg, sign_flag, create_time) values(#{id}, " +
+            "#{sendUserId}, #{receiveUserId}, #{msg}, #{signFlag}, #{createTime})")
     boolean insertOneChatMsg(ChatMsg chatMsg);
 
     @Update({"<script>" +
