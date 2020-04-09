@@ -24,6 +24,7 @@ public class HeartBeatHandler extends ChannelInboundHandlerAdapter {
                 System.out.println("进入写空间");
             } else if (idleStateEvent == IdleStateEvent.ALL_IDLE_STATE_EVENT) {
                 System.out.println("channel关闭前，users的数量为：" + ChatHandler.users.size());
+
                 Channel channel = ctx.channel();
                 // 关闭无用的channel，以防资源浪费
                 channel.close();

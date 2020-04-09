@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+
     @Override
     public String registerUser(String username, String password) {
         String id = UserIdUtil.generateUserId();
@@ -75,4 +76,5 @@ public class UserServiceImpl implements UserService {
     public boolean updatePublicKey(String username, String publicKey) {
         return userMapper.updatePublicKey(username, publicKey);
     }
+
 }
