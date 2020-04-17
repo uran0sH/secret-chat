@@ -56,4 +56,30 @@ public interface UserMapper {
      */
     @Update("update user set public_key = #{publicKey} where username = #{username}")
     boolean updatePublicKey(String username, String publicKey);
+
+    /**
+     * 更新头像
+     * @param id
+     * @param faceImage
+     * @return
+     */
+    @Update("update user set face_image = #{faceImage} where id = #{id}")
+    boolean updatePortrait(String id, String faceImage);
+
+    /**
+     * 更新用户名
+     * @param id
+     * @param username
+     * @return
+     */
+    @Update("update user set username = #{username} where id = #{id}")
+    boolean updateUsername(String id, String username);
+
+    /**
+     * 更新密码
+     * @param id
+     * @param password
+     * @return
+     */
+    boolean updatePassword(String id, String password);
 }

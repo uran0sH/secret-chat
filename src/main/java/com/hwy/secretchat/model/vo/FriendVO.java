@@ -10,6 +10,8 @@ import lombok.Data;
 @Data
 public class FriendVO {
 
+    private String id;
+
     private String username;
 
     private String faceImage;

@@ -229,3 +229,62 @@ connect: 1
 chat: 2
 sign: 3
 keep_alive: 4
+## 更新头像
+* url: `account/update/portrait`
+* 请求 JSON
+```
+{
+	"id": "brsmsg_1584881024758574067",
+	"portrait": "brsmsg_1584278438707597686",
+}
+```
+* 返回
+```
+{
+    "code": 0,
+    "msg": "success",
+    "data": true/false
+}
+```
+## 更新用户名
+* url: `account/update/username`
+* 请求 JSON
+```
+{
+	"id": "brsmsg_1584881024758574067",
+	"username": "brsmsg_1584278438707597686",
+}
+```
+* 返回
+```
+{
+    "code": 0,
+    "msg": "success",
+    "data": true/false
+}
+```
+## 更新密码
+* url: `account/update/password`
+* 请求 JSON
+```
+{
+	"id": "brsmsg_1584881024758574067",
+	"oldPassword": "brsmsg_1584278438707597686",
+	"newPassword":
+}
+```
+* 返回
+```
+{
+    "code": 0,
+    "msg": "success",
+    "data": true/false
+}
+```
+错误
+```json
+{
+    "code": 1,
+    "msg": "错误信息"
+}
+```

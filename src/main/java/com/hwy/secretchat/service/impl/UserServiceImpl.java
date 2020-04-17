@@ -77,4 +77,18 @@ public class UserServiceImpl implements UserService {
         return userMapper.updatePublicKey(username, publicKey);
     }
 
+    @Override
+    public boolean updatePortrait(String userId, String portrait) {
+        return userMapper.updatePortrait(userId, portrait);
+    }
+
+    @Override
+    public boolean updateUsername(String id, String username) {
+        return userMapper.updateUsername(id, username);
+    }
+
+    @Override
+    public boolean updatePassword(String id, String password) {
+        return userMapper.updatePassword(id, password);
+    }
 }

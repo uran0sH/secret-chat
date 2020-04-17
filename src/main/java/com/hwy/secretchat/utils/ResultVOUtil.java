@@ -35,10 +35,10 @@ public class ResultVOUtil {
      * 错误结果
      * @return ResultVO
      */
-    public static ResultVO error() {
+    public static ResultVO error(String msg) {
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(1);
-        resultVO.setMsg("error");
+        resultVO.setMsg(msg);
         return resultVO;
     }
 }

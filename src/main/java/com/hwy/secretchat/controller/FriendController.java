@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -60,10 +61,11 @@ public class FriendController {
                 if (user != null) {
                     BeanUtils.copyProperties(user, friendVO);
                 } else {
-                    throw new ReturnException(ResultEnum.PARAM_ERROR);
+                    return null;
                 }
                 return friendVO;
             }).collect(Collectors.toList());
+            friendVOList = friendVOList.stream().filter(Objects::nonNull).collect((Collectors.toList()));
         }
 
         return ResultVOUtil.success(friendVOList);

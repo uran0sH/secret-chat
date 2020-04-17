@@ -47,4 +47,28 @@ public interface UserService {
      * @return
      */
     boolean updatePublicKey(String username, String publicKey);
+
+    /**
+     * 更新头像
+     * @param userId
+     * @param portrait
+     * @return
+     */
+    boolean updatePortrait(String userId, String portrait);
+
+    /**
+     * 更新用户名
+     * @param id
+     * @param username
+     * @return
+     */
+    boolean updateUsername(String id, String username);
+
+    /**
+     * 更新密码
+     * @param id
+     * @param password
+     * @return
+     */
+    boolean updatePassword(String id, String password);
 }

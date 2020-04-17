@@ -8,13 +8,11 @@ import com.hwy.secretchat.model.vo.ResultVO;
 import com.hwy.secretchat.model.vo.UserVO;
 import com.hwy.secretchat.service.UserService;
 import com.hwy.secretchat.utils.ResultVOUtil;
+import com.hwy.secretchat.utils.encryption.SHA1EncryptUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @program secret-chat
@@ -76,5 +74,38 @@ public class UserController {
         } else {
             throw new ReturnException(ResultEnum.REGISTER_FAILED);
         }
+    }
+
+    @PostMapping("/update/portrait")
+    public ResultVO updatePortrait(@RequestParam("id") String userId, @RequestParam("portrait") String faceImage) {
+        if (StringUtils.isBlank(userId) || StringUtils.isBlank(faceImage)) {
+            throw new ReturnException(ResultEnum.PARAM_ERROR);
+        }
+        boolean result = userService.updatePortrait(userId, faceImage);
+        return ResultVOUtil.success(result);
+    }
+
+    @PostMapping("/update/username")
+    public ResultVO updateUsername(@RequestParam("id") String userId, String username) {
+        if (StringUtils.isBlank(userId) || StringUtils.isBlank(username)) {
+            throw new ReturnException(ResultEnum.PARAM_ERROR);
+        }
+        boolean result = userService.updateUsername(userId, username);
+        return ResultVOUtil.success(result);
+    }
+
+    @PostMapping("/update/password")
+    public ResultVO updatePassword(@RequestParam("id") String userId, String oldPassword, String newPassword) {
+        if (StringUtils.isBlank(userId) || StringUtils.isBlank(oldPassword) || StringUtils.isBlank(newPassword)) {
+            throw new ReturnException(ResultEnum.PARAM_ERROR);
+        }
+
+        User user = userService.findOneUserById(userId);
+        String oldPasswordHashed = SHA1EncryptUtil.encryptStr(oldPassword);
+        if (!StringUtils.equals(oldPasswordHashed, user.getPassword())) {
+            return ResultVOUtil.error("password error");
+        }
+        boolean result = userService.updatePassword(userId, newPassword);
+        return ResultVOUtil.success(result);
     }
 }
