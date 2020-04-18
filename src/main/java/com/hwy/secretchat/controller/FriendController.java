@@ -89,7 +89,7 @@ public class FriendController {
         // 前置条件 - 2. 搜索账号是你自己，返回[不能添加自己]
         // 前置条件 - 3. 搜索的朋友已经是你的好友，返回[该用户已经是你的好友]
         SearchFriendStatusEnum searchFriendStatusEnum = friendService.preconditionSearchFriend(myId, friendUsername);
-        if (searchFriendStatusEnum != SearchFriendStatusEnum.SUCCESS) {
+        if (searchFriendStatusEnum == SearchFriendStatusEnum.USER_NOT_EXIST) {
             throw new ReturnException(searchFriendStatusEnum);
         }
         User user = userService.findOneUserByUsername(friendUsername);

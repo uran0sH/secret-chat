@@ -89,6 +89,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean updatePassword(String id, String password) {
-        return userMapper.updatePassword(id, password);
+        return userMapper.updatePassword(id, SHA1EncryptUtil.encryptStr(password));
+    }
+
+    @Override
+    public boolean updateDescription(String id, String description) {
+        return userMapper.updateDescription(id, description);
     }
 }

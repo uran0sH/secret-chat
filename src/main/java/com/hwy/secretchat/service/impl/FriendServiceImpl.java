@@ -1,15 +1,21 @@
 package com.hwy.secretchat.service.impl;
 
+import com.google.gson.Gson;
 import com.hwy.secretchat.enums.FriendRequestStatusEnum;
+import com.hwy.secretchat.enums.MsgActionEnum;
 import com.hwy.secretchat.enums.SearchFriendStatusEnum;
 import com.hwy.secretchat.model.entity.Friend;
 import com.hwy.secretchat.model.entity.FriendRequest;
 import com.hwy.secretchat.model.entity.User;
 import com.hwy.secretchat.model.mapper.FriendMapper;
 import com.hwy.secretchat.model.mapper.FriendRequestMapper;
+import com.hwy.secretchat.netty.DataContent;
+import com.hwy.secretchat.netty.UserChannelRel;
 import com.hwy.secretchat.service.FriendService;
 import com.hwy.secretchat.service.UserService;
 import com.hwy.secretchat.utils.KeyUtil;
+import io.netty.channel.Channel;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -99,9 +105,25 @@ public class FriendServiceImpl implements FriendService {
     public boolean operateFriendRequest(String sendUserId, String receiveUserId, Integer operateType) {
         boolean result = friendRequestMapper.updateFriendRequestStatus(sendUserId, receiveUserId, operateType);
         if (operateType.equals(FriendRequestStatusEnum.ACCEPTED.getCode()) && result) {
-                return insertOneFriend(sendUserId, receiveUserId) & insertOneFriend(receiveUserId, sendUserId);
+            boolean isOk = insertOneFriend(sendUserId, receiveUserId) & insertOneFriend(receiveUserId, sendUserId);
+            if (isOk) {
+                Channel senderChannel = UserChannelRel.get(sendUserId);
+                Channel receiveChannel = UserChannelRel.get(receiveUserId);
+                informFreshFriend(senderChannel);
+                informFreshFriend(receiveChannel);
+            }
+            return isOk;
         }
         return false;
+    }
+
+    private void informFreshFriend(Channel channel) {
+        Gson gson = new Gson();
+        if (channel != null) {
+            DataContent dataContent = new DataContent();
+            dataContent.setAction(MsgActionEnum.PULL_FRIEND.getType());
+            channel.writeAndFlush(new TextWebSocketFrame(gson.toJson(dataContent)));
+        }
     }
 
 }

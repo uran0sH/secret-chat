@@ -229,6 +229,7 @@ connect: 1
 chat: 2
 sign: 3
 keep_alive: 4
+pull_friend: 5
 ## 更新头像
 * url: `account/update/portrait`
 * 请求 JSON

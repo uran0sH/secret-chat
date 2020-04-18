@@ -83,4 +83,13 @@ public interface UserMapper {
      */
     @Update("update user set password = #{password} where id = #{id}")
     boolean updatePassword(String id, String password);
+
+    /**
+     * 更新个性签名
+     * @param id
+     * @param description
+     * @return
+     */
+    @Update("update user set description = #{description} where id = #{id}")
+    boolean updateDescription(String id, String description);
 }

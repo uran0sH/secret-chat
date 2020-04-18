@@ -71,4 +71,12 @@ public interface UserService {
      * @return
      */
     boolean updatePassword(String id, String password);
+
+    /**
+     * 更新个性签名
+     * @param id
+     * @param description
+     * @return
+     */
+    boolean updateDescription(String id, String description);
 }

@@ -108,4 +108,13 @@ public class UserController {
         boolean result = userService.updatePassword(userId, newPassword);
         return ResultVOUtil.success(result);
     }
+
+    @PostMapping("/update/description")
+    public ResultVO updateDescription(@RequestParam("id") String userId, String description) {
+        if (StringUtils.isBlank(userId) || StringUtils.isBlank(description)) {
+            throw new ReturnException(ResultEnum.PARAM_ERROR);
+        }
+        boolean result = userService.updateDescription(userId, description);
+        return ResultVOUtil.success(result);
+    }
 }
