@@ -81,5 +81,6 @@ public interface UserMapper {
      * @param password
      * @return
      */
+    @Update("update user set password = #{password} where id = #{id}")
     boolean updatePassword(String id, String password);
 }

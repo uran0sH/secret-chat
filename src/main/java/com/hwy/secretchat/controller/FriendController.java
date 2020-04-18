@@ -151,6 +151,6 @@ public class FriendController {
         if (result) {
             return ResultVOUtil.success();
         }
-        return ResultVOUtil.error();
+        return ResultVOUtil.error("friend request error");
     }
 }
