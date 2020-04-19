@@ -174,7 +174,7 @@ myId = brsmsg_1584278438707597686
 }
 ```
 ## 发出好友请求
-* url: `friend/searchFriendRequest`
+* url: `friend/sendFriendRequest`
 * 请求
 请求方法 POST(非JSON)
 请求参数
