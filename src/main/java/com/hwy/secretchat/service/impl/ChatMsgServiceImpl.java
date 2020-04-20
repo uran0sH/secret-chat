@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -45,5 +47,14 @@ public class ChatMsgServiceImpl implements ChatMsgService {
     @Override
     public boolean updateMsgSigned(List<String> msgIdList) {
         return chatMsgMapper.batchUpdateMsgSigned(msgIdList);
+    }
+
+    @Override
+    public List<ChatMsg> getHistory(String myId, String friendId) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime start = now.minusDays(4);
+        List<ChatMsg> chatMsgList = chatMsgMapper.getHistory(myId, friendId, start, now);
+        Collections.sort(chatMsgList);
+        return chatMsgList;
     }
 }

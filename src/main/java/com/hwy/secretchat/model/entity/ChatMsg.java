@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * @create 2020-03-24
  */
 @Data
-public class ChatMsg {
+public class ChatMsg implements Comparable<ChatMsg>{
 
     private String id;
 
@@ -23,4 +23,9 @@ public class ChatMsg {
     private Integer signFlag;
 
     private LocalDateTime createTime;
+
+    @Override
+    public int compareTo(ChatMsg o) {
+        return createTime.compareTo(o.createTime);
+    }
 }

@@ -232,12 +232,10 @@ keep_alive: 4
 pull_friend: 5
 ## 更新头像
 * url: `account/update/portrait`
-* 请求 JSON
+* 请求 非json
 ```
-{
-	"id": "brsmsg_1584881024758574067",
-	"portrait": "brsmsg_1584278438707597686",
-}
+"id": "brsmsg_1584881024758574067",
+"portrait": "brsmsg_1584278438707597686",
 ```
 * 返回
 ```
@@ -249,12 +247,10 @@ pull_friend: 5
 ```
 ## 更新用户名
 * url: `account/update/username`
-* 请求 JSON
+* 请求 非json
 ```
-{
-	"id": "brsmsg_1584881024758574067",
-	"username": "brsmsg_1584278438707597686",
-}
+"id": "brsmsg_1584881024758574067",
+"username": "brsmsg_1584278438707597686",
 ```
 * 返回
 ```
@@ -266,13 +262,11 @@ pull_friend: 5
 ```
 ## 更新密码
 * url: `account/update/password`
-* 请求 JSON
+* 请求 非json
 ```
-{
-	"id": "brsmsg_1584881024758574067",
-	"oldPassword": "brsmsg_1584278438707597686",
-	"newPassword":
-}
+"id": "brsmsg_1584881024758574067",
+"oldPassword": "brsmsg_1584278438707597686",
+"newPassword":
 ```
 * 返回
 ```
@@ -287,5 +281,39 @@ pull_friend: 5
 {
     "code": 1,
     "msg": "错误信息"
+}
+```
+## 获取聊天记录
+* url: `message/history`
+* 请求 非json
+```
+myId
+receiverId
+```
+* 返回
+```json
+{
+    "code": 0,
+    "msg": "success",
+    "data": [
+        {
+            "sendUserId": "brsmsg_1586334335390388232",
+            "receiveUserId": "brsmsg_1584278438707597686",
+            "msg": "cPK/h1LEslS1VJXZvUeNj+XP33236akKcnWGeRr7XvdnAfy8tYXSI/NekuQF83NoAbioBAnX8xcl\njB/Tf979QIj9UBnm2tMN5vJIbuT/Xu5hL322k/yuMDftCzUHqHaPCJiT4lWBX3q0mp/bb4XbCqcA\n/TumvxjwenVMzNTRndQ=\n",
+            "createTime": "2020-04-17T11:55:06"
+        },
+        {
+            "sendUserId": "brsmsg_1586334335390388232",
+            "receiveUserId": "brsmsg_1584278438707597686",
+            "msg": "NfuxIkufn2PAvSE+AC0dUo7RExmgC0/AGLnTGzR2Tf57g3y2FdPU5e61paCESBNB4+Y7fJOl197s\nP5P/FOLB+ybdk0ttOkJow/FMpaQNlnjUmZCfTjlW3+zfT0peC1txEQCVrXn7L7AuI7B2mipgMZoq\nhXJ25wl67Y9laxkeqKI=\n",
+            "createTime": "2020-04-20T20:11:28"
+        },
+        {
+            "sendUserId": "brsmsg_1586334335390388232",
+            "receiveUserId": "brsmsg_1584278438707597686",
+            "msg": "ez+SHcsU2gFWfas5kEr45Nrtb0qCsGQr3qEi44fjNTv9tDZS5PymqNkL2ReEPeVBGG0wSZ3wlYPR\nIkyxqhmv6X7/MNIcnS8muO9jp178gd3l8BzPHlQf2Aa4hfcpyowsX25rOW0l/5u/07FK/NvAq7ke\nrd8GpvTrXCiWAU7qOHo=\n",
+            "createTime": "2020-04-20T20:11:36"
+        }
+    ]
 }
 ```

@@ -1,5 +1,6 @@
 package com.hwy.secretchat.service;
 
+import com.hwy.secretchat.model.entity.ChatMsg;
 import com.hwy.secretchat.netty.Message;
 
 import java.util.List;
@@ -24,4 +25,6 @@ public interface ChatMsgService {
      * @return
      */
     boolean updateMsgSigned(List<String> msgIdList);
+
+    List<ChatMsg> getHistory(String myId, String friendId);
 }
