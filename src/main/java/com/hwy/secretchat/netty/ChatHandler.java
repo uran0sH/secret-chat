@@ -49,30 +49,15 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
                 System.out.println(c.id().asLongText());
             }
             UserChannelRel.output();
-        } else if (action.equals(MsgActionEnum.CHAT.getType())) {
+        } else if (action.equals(MsgActionEnum.CHAT_UNENCRYPTED.getType())) {
             Message message = dataContent.getMessage();
 
             //将这条消息保存到数据库
             ChatMsgService chatMsgService = (ChatMsgService)SpringUtil.getBean("chatMsgServiceImpl");
             String msgId = chatMsgService.saveOneMsg(message);
             message.setMsgId(msgId);
-            //生成消息
-            DataContent dataContentMsg = new DataContent();
-            dataContentMsg.setMessage(message);
-            dataContentMsg.setAction(MsgActionEnum.CHAT.getType());
             //发送消息
-            String receiverUserId = message.getReceiveUserId();
-            Channel receiverChannel = UserChannelRel.get(receiverUserId);
-            if (receiverChannel == null) {
-                //TODO 用户不在线需要进行推送
-            } else {
-                Channel channel = users.find(receiverChannel.id());
-                if (channel == null) {
-                    //TODO 用户掉线
-                } else {
-                    channel.writeAndFlush(new TextWebSocketFrame(gson.toJson(dataContentMsg)));
-                }
-            }
+            sendMessage(message, MsgActionEnum.CHAT_UNENCRYPTED.getType());
         } else if (action.equals(MsgActionEnum.SIGN.getType())) {
             ChatMsgService chatMsgService = (ChatMsgService)SpringUtil.getBean("chatMsgServiceImpl");
             //签收的消息Id存放在扩展字段，用,分割
@@ -86,8 +71,33 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         } else if (action.equals(MsgActionEnum.KEEP_ALIVE.getType())) {
             //调试
             System.out.println(currentChannel + "心跳包");
+        } else if (action.equals(MsgActionEnum.CHAT_ENCRYPTED.getType())) {
+            //发送消息
+            Message message = dataContent.getMessage();
+            sendMessage(message, MsgActionEnum.CHAT_ENCRYPTED.getType());
         }
 
+    }
+
+    private void sendMessage(Message message, Integer type) {
+        //生成消息
+        DataContent dataContent = new DataContent();
+        dataContent.setMessage(message);
+        dataContent.setAction(type);
+        //发送消息
+        String receiverId = message.getReceiveUserId();
+        Channel receiveChannel = UserChannelRel.get(receiverId);
+        if (receiveChannel == null) {
+            //TODO 用户不在线进行推送
+        } else {
+            Channel channel = users.find(receiveChannel.id());
+            if (channel == null) {
+                //TODO 用户掉线进行推送
+            } else {
+                Gson gson = new Gson();
+                channel.writeAndFlush(new TextWebSocketFrame(gson.toJson(dataContent)));
+            }
+        }
     }
 
     @Override

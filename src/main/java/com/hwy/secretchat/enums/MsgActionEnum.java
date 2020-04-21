@@ -13,10 +13,11 @@ public enum MsgActionEnum {
      * 消息类型
      */
     CONNECT(1, "First connection"),
-    CHAT(2, "chat message"),
+    CHAT_ENCRYPTED(2, "chat message encrypted"),
     SIGN(3, "message sign"),
     KEEP_ALIVE(4, "keep alive"),
-    PULL_FRIEND(5, "pull friend");
+    PULL_FRIEND(5, "pull friend"),
+    CHAT_UNENCRYPTED(6, "chat message unencrypted");
 
     private Integer type;
 
