@@ -4,8 +4,10 @@ import com.hwy.secretchat.enums.ResultEnum;
 import com.hwy.secretchat.enums.SearchFriendStatusEnum;
 import com.hwy.secretchat.exception.ReturnException;
 import com.hwy.secretchat.model.entity.Friend;
+import com.hwy.secretchat.model.entity.FriendRequest;
 import com.hwy.secretchat.model.entity.User;
 import com.hwy.secretchat.model.bo.FriendRequestBO;
+import com.hwy.secretchat.model.vo.FriendRequestVO;
 import com.hwy.secretchat.model.vo.FriendVO;
 import com.hwy.secretchat.model.vo.ResultVO;
 import com.hwy.secretchat.model.vo.UserVO;
@@ -135,7 +137,15 @@ public class FriendController {
             throw new ReturnException(ResultEnum.PARAM_ERROR);
         }
 
-        return ResultVOUtil.success(friendService.findAllFriendRequests(myId));
+        List<FriendRequest> friendRequests = friendService.findAllFriendRequests(myId);
+        List<FriendRequestVO> friendRequestVOList = friendRequests.stream().map(e->{
+            User user = userService.findOneUserById(e.getSendUserId());
+            FriendRequestVO friendRequestVO = new FriendRequestVO();
+            BeanUtils.copyProperties(e, friendRequestVO);
+            friendRequestVO.setUsername(user.getUsername());
+            return friendRequestVO;
+        }).collect(Collectors.toList());
+        return ResultVOUtil.success(friendRequestVOList);
 
     }
 

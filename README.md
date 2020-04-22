@@ -166,6 +166,7 @@ myId = brsmsg_1584278438707597686
         {
             "id": "1584939826406769446",
             "sendUserId": "brsmsg_1584278438707597686",
+            "username":,
             "receiveUserId": "brsmsg_1584881024758574067",
             "isAccept": 0,
             "requestDateTime": "2020-03-23T13:03:46"
