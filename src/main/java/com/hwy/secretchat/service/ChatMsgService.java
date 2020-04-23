@@ -26,5 +26,16 @@ public interface ChatMsgService {
      */
     boolean updateMsgSigned(List<String> msgIdList);
 
+    /**
+     * 获取聊天记录
+     * @param myId
+     * @param friendId
+     * @return
+     */
     List<ChatMsg> getHistory(String myId, String friendId);
+
+    List<ChatMsg> getUnsentMessage(String myId);
+
+
+    boolean updateSendStateToSuccess(String msgId);
 }

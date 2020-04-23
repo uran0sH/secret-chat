@@ -22,6 +22,8 @@ public class ChatMsg implements Comparable<ChatMsg>{
 
     private Integer signFlag;
 
+    private Integer isSent;
+
     private LocalDateTime createTime;
 
     @Override

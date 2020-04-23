@@ -17,7 +17,8 @@ public enum MsgActionEnum {
     SIGN(3, "message sign"),
     KEEP_ALIVE(4, "keep alive"),
     PULL_FRIEND(5, "pull friend"),
-    CHAT_UNENCRYPTED(6, "chat message unencrypted");
+    CHAT_UNENCRYPTED(6, "chat message unencrypted"),
+    FORCE_OFFLINE(7, "force user to go offline");
 
     private Integer type;
 

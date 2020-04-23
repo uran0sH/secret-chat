@@ -37,6 +37,7 @@ public class ChatMsgServiceImpl implements ChatMsgService {
         chatMsg.setId(msgId);
         chatMsg.setCreateTime(localDateTime);
         chatMsg.setSignFlag(signFlag);
+        chatMsg.setIsSent(0);
         boolean result = chatMsgMapper.insertOneChatMsg(chatMsg);
         if (result) {
             return msgId;
@@ -56,5 +57,17 @@ public class ChatMsgServiceImpl implements ChatMsgService {
         List<ChatMsg> chatMsgList = chatMsgMapper.getHistory(myId, friendId, start, now);
         Collections.sort(chatMsgList);
         return chatMsgList;
+    }
+
+    @Override
+    public List<ChatMsg> getUnsentMessage(String myId) {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime start = now.minusDays(2);
+        return chatMsgMapper.getUnsentMessage(myId, start, now);
+    }
+
+    @Override
+    public boolean updateSendStateToSuccess(String msgId) {
+        return chatMsgMapper.updateSendStateToSuccess(msgId);
     }
 }

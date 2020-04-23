@@ -3,6 +3,7 @@ package com.hwy.secretchat.netty;
 import com.google.gson.Gson;
 import com.hwy.secretchat.SpringUtil;
 import com.hwy.secretchat.enums.MsgActionEnum;
+import com.hwy.secretchat.model.entity.ChatMsg;
 import com.hwy.secretchat.service.ChatMsgService;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -42,22 +43,48 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         if (action.equals(MsgActionEnum.CONNECT.getType())) {
             //第一次连接将用户id和channel关联
             String senderId = dataContent.getMessage().getSendUserId();
-            UserChannelRel.put(senderId, currentChannel);
-            System.out.println(senderId);
-            // 测试
-            for (Channel c : users) {
-                System.out.println(c.id().asLongText());
+            //判断是否有相同的用户名在两个地方登陆
+            //如果有强制前一个用户下线
+            Channel preChannel = UserChannelRel.get(senderId);
+            if (preChannel != null) {
+                Channel channel = users.find(preChannel.id());
+                if (channel != null) {
+                    //发送强制下线消息
+                    DataContent tempDataContent = new DataContent();
+                    tempDataContent.setAction(MsgActionEnum.FORCE_OFFLINE.getType());
+                    channel.writeAndFlush(new TextWebSocketFrame(gson.toJson(tempDataContent)));
+                    //关闭channel
+                    channel.close();
+                }
             }
+            //绑定新的用户channel
+            UserChannelRel.put(senderId, currentChannel);
             UserChannelRel.output();
+            //将还未发送的消息发送
+            ChatMsgService chatMsgService = (ChatMsgService)SpringUtil.getBean("chatMsgServiceImpl");
+            List<ChatMsg> resultList = chatMsgService.getUnsentMessage(senderId);
+            for (ChatMsg chatMsg : resultList) {
+                Message message = new Message();
+                message.setMsgId(chatMsg.getId());
+                message.setSendUserId(chatMsg.getSendUserId());
+                message.setReceiveUserId(chatMsg.getReceiveUserId());
+                message.setMsg(chatMsg.getMsg());
+                boolean result = sendMessage(message, MsgActionEnum.CHAT_UNENCRYPTED.getType());
+                if (result) {
+                    chatMsgService.updateSendStateToSuccess(chatMsg.getId());
+                }
+            }
         } else if (action.equals(MsgActionEnum.CHAT_UNENCRYPTED.getType())) {
             Message message = dataContent.getMessage();
-
             //将这条消息保存到数据库
             ChatMsgService chatMsgService = (ChatMsgService)SpringUtil.getBean("chatMsgServiceImpl");
             String msgId = chatMsgService.saveOneMsg(message);
             message.setMsgId(msgId);
             //发送消息
-            sendMessage(message, MsgActionEnum.CHAT_UNENCRYPTED.getType());
+            boolean result = sendMessage(message, MsgActionEnum.CHAT_UNENCRYPTED.getType());
+            if (result) {
+                chatMsgService.updateSendStateToSuccess(msgId);
+            }
         } else if (action.equals(MsgActionEnum.SIGN.getType())) {
             ChatMsgService chatMsgService = (ChatMsgService)SpringUtil.getBean("chatMsgServiceImpl");
             //签收的消息Id存放在扩展字段，用,分割
@@ -79,7 +106,7 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
 
     }
 
-    private void sendMessage(Message message, Integer type) {
+    private boolean sendMessage(Message message, Integer type) {
         //生成消息
         DataContent dataContent = new DataContent();
         dataContent.setMessage(message);
@@ -89,13 +116,16 @@ public class ChatHandler extends SimpleChannelInboundHandler<TextWebSocketFrame>
         Channel receiveChannel = UserChannelRel.get(receiverId);
         if (receiveChannel == null) {
             //TODO 用户不在线进行推送
+            return false;
         } else {
             Channel channel = users.find(receiveChannel.id());
             if (channel == null) {
                 //TODO 用户掉线进行推送
+                return false;
             } else {
                 Gson gson = new Gson();
                 channel.writeAndFlush(new TextWebSocketFrame(gson.toJson(dataContent)));
+                return true;
             }
         }
     }

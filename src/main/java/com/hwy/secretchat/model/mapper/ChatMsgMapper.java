@@ -23,8 +23,8 @@ public interface ChatMsgMapper {
      * @param chatMsg
      * @return
      */
-    @Insert("insert into chat_msg(id, send_user_id, receive_user_id, msg, sign_flag, create_time) values(#{id}, " +
-            "#{sendUserId}, #{receiveUserId}, #{msg}, #{signFlag}, #{createTime})")
+    @Insert("insert into chat_msg(id, send_user_id, receive_user_id, msg, sign_flag, create_time, is_sent)values(#{id}, " +
+            "#{sendUserId}, #{receiveUserId}, #{msg}, #{signFlag}, #{createTime}, #{isSent})")
     boolean insertOneChatMsg(ChatMsg chatMsg);
 
     /**
@@ -52,4 +52,23 @@ public interface ChatMsgMapper {
             "or send_user_id = #{receiveUserId} and receive_user_id = #{sendUserId}) and create_time between #{startTime}" +
             "and #{endTime}")
     List<ChatMsg> getHistory(String sendUserId, String receiveUserId, LocalDateTime startTime, LocalDateTime endTime);
+
+    /**
+     * 查找未发送的消息
+     * @param receiveUserId
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @Select("select * from chat_msg where (receive_user_id = #{receiveUserId} and is_sent = 0) and create_time " +
+            "between #{startTime} and #{endTime}")
+    List<ChatMsg> getUnsentMessage(String receiveUserId, LocalDateTime startTime, LocalDateTime endTime);
+
+    /**
+     * 设置消息为发送成功
+     * @param msgId
+     * @return
+     */
+    @Update("update chat_msg set is_sent = 1 where id = #{msgId}")
+    boolean updateSendStateToSuccess(String msgId);
 }
