@@ -10,6 +10,7 @@ spring:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
 
+
 #Pagehelper配置
 pagehelper:
   reasonable: false
@@ -27,3 +28,4 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+

@@ -140,13 +140,17 @@ public class FriendController {
         List<FriendRequest> friendRequests = friendService.findAllFriendRequests(myId);
         List<FriendRequestVO> friendRequestVOList = friendRequests.stream().map(e->{
             User user = userService.findOneUserById(e.getSendUserId());
+            if (user == null) {
+                return null;
+            }
             FriendRequestVO friendRequestVO = new FriendRequestVO();
             BeanUtils.copyProperties(e, friendRequestVO);
             friendRequestVO.setUsername(user.getUsername());
             return friendRequestVO;
         }).collect(Collectors.toList());
+        //过滤空白元素
+        friendRequestVOList = friendRequestVOList.stream().filter(Objects::nonNull).collect(Collectors.toList());
         return ResultVOUtil.success(friendRequestVOList);
-
     }
 
     /**
